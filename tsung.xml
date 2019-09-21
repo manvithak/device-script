@@ -28,7 +28,7 @@
             </request>
             <for from="1" to="50" incr="1" var="loops"><!--Mention the number of publishes from each connected device-->
                 <request>
-    		    <mqtt type="publish" topic="v1/devices/me/telemetry" qos="1" retained="true" stamped="false">{"Accuracy": 96}</mqtt>
+    		    <mqtt type="publish" topic="v1/devices/me/telemetry" qos="1" retained="true">{"Accuracy": 96}</mqtt>
                 </request>
             </for>
         	<for var="i" from="1" to="10" incr="1">
