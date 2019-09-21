@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="debug" version="1.0">
+     <clients>
+	     <client host="client ip1" cpu="4" maxusers="64000"/><!--Add the clients in this session-->
+         <!--<client host="client ip2" cpu="2" maxusers="64000">-->
+    </clients>
+
+    <servers>
+        <server host="35.154.87.124" port="1883" type="tcp"/>
+    </servers>
+    <load>
+        <arrivalphase phase="1" duration="100" unit="second"><!--Specify the test duration and the rate of load generation-->
+            <users arrivalrate="40" unit="second"/>
+        </arrivalphase>
+    </load>
+    <options>
+        <option name="file_server" id="userlist" value="/root/userlist.csv"/><!--Configure the csv with access tokens-->
+    </options>
+
+    <sessions>
+        <session name="mqtt_publisher" probability="100" type="ts_mqtt">
+        	<setdynvars sourcetype="file" fileid="userlist" delimiter="\n" order="iter">
+           		<var name="username"/>
+        	</setdynvars>
+            <request subst="true">
+                <mqtt type="connect" clean_start="true" keepalive="100" will_topic="will_topic" will_qos="0" will_msg="will_msg" will_retain="false" username="%%_username%%"></mqtt><!--Custom device connection to the broker with the usernames provided in the csv file-->
+            </request>
+            <for from="1" to="50" incr="1" var="loops"><!--Mention the number of publishes from each connected device-->
+                <request>
+    		    <mqtt type="publish" topic="v1/devices/me/telemetry" qos="1" retained="true" stamped="false">{"Accuracy": 96}</mqtt>
+                </request>
+            </for>
+        	<for var="i" from="1" to="10" incr="1">
+                <thinktime value="20"/>
+            </for>
+        </session>
+    </sessions>
+</tsung>
