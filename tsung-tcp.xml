@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="debug" dumptraffic="true" version="1.0">
+
+  <clients>
+    <client host="client ip" cpu="4" maxusers="64000"/>
+    <!--Add as many clients needed as per load-->
+  </clients>
+
+  <servers>
+    <server host="server ip" port="4011" type="tcp"></server>
+    <!--ip of server to be tested-->
+  </servers>
+
+  <load>
+    <arrivalphase phase="1" duration="100" unit="second">
+      <users arrivalrate="40" unit="second"></users>
+    </arrivalphase>
+  </load>
+  <options>
+     <option name="file_server" id="userlist" value="/root/userlist.csv"/>
+     <!--Add devices.csv file in the value field-->
+  </options>
+
+ <sessions>
+    <session probability="100" name="raw" type="ts_raw">
+    <setdynvars sourcetype="file" fileid="userlist" delimiter="\n" order="iter">
+       <var name="username"/>
+    </setdynvars>
+
+    <transaction name="open">
+	    <request subst="true">
+          <raw data="[2019-09-25 11:12:55,T1,1,V1.0.0,%%_username%%,,00000000000,,%%_username%%,,CMCC]" ack="local"></raw>
+      </request>
+    </transaction>
+    <transaction name="data">
+	    <for var="i" from="1" to="10" incr="1">
+        <request subst="true">
+            <raw data="[2019-09-25 13:37:09,T3,1,V1.0.0,%%_username%%,00,12400,991,34.4536,-118.6095,55,270]" ack="local"></raw>
+        </request>
+      </for>
+    </transaction>	    
+    <for var="i" from="1" to="20" incr="1">
+      <thinktime value="10"/>
+    </for>
+  </session>
+ </sessions>
+</tsung>
