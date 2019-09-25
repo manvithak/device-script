@@ -6,7 +6,7 @@ const app = express();
 
 var options = {
 	method: 'GET',
-	url: 'http://165.22.209.17/api/tenant/devices?limit=5000&textSearch=',
+	url: 'http://<test-server-ip>/api/tenant/devices?limit=5000&textSearch=',
 	credentials:"omit",
 	headers:{"accept":"application/json, text/plain, */*","accept-language":"en-US,en;q=0.9","x-authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZW5hbnRAdGhpbmdzYm9hcmQub3JnIiwic2NvcGVzIjpbIlRFTkFOVF9BRE1JTiJdLCJ1c2VySWQiOiJjMTY1YzEwMC1kZjViLTExZTktODRjMC1jNTZlMzdkYTI1Y2QiLCJlbmFibGVkIjp0cnVlLCJpc1B1YmxpYyI6ZmFsc2UsInRlbmFudElkIjoiYzEzNTE0MTAtZGY1Yi0xMWU5LTg0YzAtYzU2ZTM3ZGEyNWNkIiwiY3VzdG9tZXJJZCI6IjEzODE0MDAwLTFkZDItMTFiMi04MDgwLTgwODA4MDgwODA4MCIsImlzcyI6InRoaW5nc2JvYXJkLmlvIiwiaWF0IjoxNTY5MzkyMTQ2LCJleHAiOjE1Njk0MDExNDZ9.7CRGUoKyW6lVw0t-3uU9Q_p6y5PnwfBO8pCAntkcShTRD8_hXP2HH6FtlAaay7vq5rwoZtjx8KtUoP76mNd_4g"}
 }
@@ -26,7 +26,7 @@ request(options, function (error, response, body) {
   for(i=0; i<deviceIds.length; i++) {
   	options1 = {
   		method: 'GET',
-		url: 'http://165.22.209.17/api/device/'+deviceIds[i]+'/credentials',
+		url: 'http://<test-server-ip>/api/device/'+deviceIds[i]+'/credentials',
 		credentials:"omit",
 		headers:{"accept":"application/json, text/plain, */*","accept-language":"en-US,en;q=0.9","x-authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZW5hbnRAdGhpbmdzYm9hcmQub3JnIiwic2NvcGVzIjpbIlRFTkFOVF9BRE1JTiJdLCJ1c2VySWQiOiJjMTY1YzEwMC1kZjViLTExZTktODRjMC1jNTZlMzdkYTI1Y2QiLCJlbmFibGVkIjp0cnVlLCJpc1B1YmxpYyI6ZmFsc2UsInRlbmFudElkIjoiYzEzNTE0MTAtZGY1Yi0xMWU5LTg0YzAtYzU2ZTM3ZGEyNWNkIiwiY3VzdG9tZXJJZCI6IjEzODE0MDAwLTFkZDItMTFiMi04MDgwLTgwODA4MDgwODA4MCIsImlzcyI6InRoaW5nc2JvYXJkLmlvIiwiaWF0IjoxNTY5MzkyMTQ2LCJleHAiOjE1Njk0MDExNDZ9.7CRGUoKyW6lVw0t-3uU9Q_p6y5PnwfBO8pCAntkcShTRD8_hXP2HH6FtlAaay7vq5rwoZtjx8KtUoP76mNd_4g"}
 	}
